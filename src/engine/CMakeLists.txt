@@ -82,17 +82,29 @@ target_include_directories( engine PRIVATE
 target_link_libraries( engine platform )
 
 if(WIN32)
-    add_dependencies( engine OpenAL)
 
+	# TODO: MSYS check and specific stuff here (if possible)
+
+    # add_dependencies( engine OpenAL)
+
+	find_package(OpenAL REQUIRED)
+	
     target_include_directories( engine PRIVATE
             ../3rdparty/SDL2/include/
-            ../3rdparty/openal-soft/include/
+            #../3rdparty/openal-soft/include/
+			${OPENAL_INCLUDE_DIR}
             # below is hack to get imgui compiled on Windows with GLEW.
             ../3rdparty/platform/platform/3rdparty/glew-2.2.0/include/
             )
-    target_link_directories( engine PRIVATE ../3rdparty/SDL2/lib/ ../3rdparty/openal-soft/lib/ ../../lib/)
+    target_link_directories( engine PRIVATE ../3rdparty/SDL2/lib/ 
+		#../3rdparty/openal-soft/lib/
+		${OPENAL_LIBRARY_DIR}		
+		../../lib/)
     target_link_options( engine PRIVATE -mwindows)
-    target_link_libraries( engine -Wl,-Bstatic SDL2 OpenAL32 stdc++ winpthread -Wl,-Bdynamic -static-libstdc++ -static-libgcc
+    target_link_libraries( engine -Wl,-Bstatic SDL2 
+		#OpenAL
+		${OPENAL_LIBRARY}
+		stdc++ winpthread -Wl,-Bdynamic -static-libstdc++ -static-libgcc
             # Window Libraries
             Version SetupAPI Winmm Imm32)
 elseif(APPLE)
