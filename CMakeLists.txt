@@ -57,9 +57,11 @@ function(build_openal)
     add_subdirectory(src/3rdparty/openal-soft)
 endfunction()
 
-#if(WIN32 OR APPLE)
-#    build_openal()
-#endif()
+if (NOT MSYS) # We use the prebuilt OpenAL package when building with MSYS
+	if(WIN32 OR APPLE)
+		build_openal()
+	endif()
+endif()
 
 # Get the current working branch
 execute_process(
