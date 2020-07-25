@@ -43,7 +43,10 @@ bin/imgui.ini
 bin/debug/
 bin/release/
 
-# Ignore extracted assets 
+# Ignore extracted assets
+bin/mods/how/maps/*
+!bin/mods/how/maps/*.map
+!bin/mods/how/maps/*.template 
 bin/mods/how/audio/
 bin/mods/how/chars/
 bin/mods/how/frontend/
