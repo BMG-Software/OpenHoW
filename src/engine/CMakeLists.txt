@@ -84,26 +84,34 @@ target_link_libraries( engine platform )
 if(WIN32)
 
 	if (MSYS)
-		find_package(OpenAL REQUIRED)
+        find_package(OpenAL REQUIRED)
+        find_package(SDL2 REQUIRED)
 	else()
-		# if not using MSYS on Windows set variables to point to built openal-soft
-		add_dependencies(engine OpenAL)
+        add_dependencies(engine OpenAL)
 		set(OPENAL_INCLUDE_DIR "../3rdparty/openal-soft/include/")
 		set(OPENAL_LIBRARY_DIR "../3rdparty/openal-soft/lib/")
-		set(OPENAL_LIBRARY "OpenAL")
-	endif()
+        set(OPENAL_LIBRARY "OpenAL")
+        
+        add_dependencies(engine SDL2)
+        set(SDL2_INCLUDE_DIRs "../3rdparty/SDL2/include/")
+        set(SDL2_LIBDIR "../3rdparty/SDL2/lib/")
+        set(SDL2_LIBRARIES "SDL2")
+    endif()
 
     target_include_directories( engine PRIVATE
-            ../3rdparty/SDL2/include/
-			${OPENAL_INCLUDE_DIR}
+            ${SDL2_INCLUDE_DIRS}
+            ${OPENAL_INCLUDE_DIR}
             # below is hack to get imgui compiled on Windows with GLEW.
             ../3rdparty/platform/platform/3rdparty/glew-2.2.0/include/
             )
-    target_link_directories( engine PRIVATE ../3rdparty/SDL2/lib/
+    target_link_directories( engine PRIVATE 
+        ${SDL2_LIBDIR}
 		${OPENAL_LIBRARY_DIR}		
-		../../lib/)
+        ../../lib/
+        )
     target_link_options( engine PRIVATE -mwindows)
-    target_link_libraries( engine -Wl,-Bstatic SDL2 
+    target_link_libraries( engine -Wl,-Bstatic 
+        ${SDL2_LIBRARIES} 
 		${OPENAL_LIBRARY}
 		stdc++ winpthread -Wl,-Bdynamic -static-libstdc++ -static-libgcc
             # Window Libraries
