@@ -92,20 +92,11 @@ if(WIN32)
         set(OPENAL_LIBRARY "OpenAL")
         
         add_dependencies(engine SDL2)
-        set(SDL2_INCLUDE_DIRs "../3rdparty/SDL2/include/")
-        set(SDL2_LIBDIR "../3rdparty/SDL2/lib/")
+        set(SDL2_INCLUDE_DIR "../3rdparty/SDL2/include/")
+        set(SDL2_LIBRARY_DIR "../3rdparty/SDL2/lib/")
     endif()
 
-    set(SDL2_LIBRARIES "SDL2")
-
-
-    message(STATUS "print_all_variables------------------------------------------{")
-    get_cmake_property(_variableNames VARIABLES)
-    foreach (_variableName ${_variableNames})
-        message(STATUS "${_variableName}=${${_variableName}}")
-    endforeach()
-    message(STATUS "print_all_variables------------------------------------------}")
-
+    set(SDL2_LIBRARIES "SDL2") # This needs to be set either way
 
     target_include_directories( engine PRIVATE
             ${SDL2_INCLUDE_DIRS}
