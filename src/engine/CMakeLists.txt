@@ -85,8 +85,6 @@ if(WIN32)
 
 	if (MSYS)
         find_package(OpenAL REQUIRED)
-        find_package(SDL2 REQUIRED)
-        string(APPEND ${SDL2_CONSIDERED_CONFIGS} "${CMAKE_SOURCE_DIR}/cmake/Modules/FindSDL2.cmake")
 	else()
         add_dependencies(engine OpenAL)
         set(OPENAL_INCLUDE_DIR "../3rdparty/openal-soft/include/")
@@ -96,8 +94,9 @@ if(WIN32)
         add_dependencies(engine SDL2)
         set(SDL2_INCLUDE_DIRs "../3rdparty/SDL2/include/")
         set(SDL2_LIBDIR "../3rdparty/SDL2/lib/")
-        set(SDL2_LIBRARIES "SDL2")
     endif()
+
+    set(SDL2_LIBRARIES "SDL2")
 
 
     message(STATUS "print_all_variables------------------------------------------{")
