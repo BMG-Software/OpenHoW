@@ -61,9 +61,6 @@ if (NOT MSYS) # We use the prebuilt OpenAL package when building with MSYS
 	if(WIN32 OR APPLE)
 		build_openal()
     endif()
-elseif()
-    # Cmake needs to know where the FindXXX.cmake files are
-    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules")
 endif()
 
 # Get the current working branch
